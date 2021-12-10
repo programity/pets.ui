@@ -1,0 +1,7 @@
+{
+  "name": "pets.ui",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

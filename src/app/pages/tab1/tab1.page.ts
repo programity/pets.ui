@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/app/interfaces/interfaces';
 import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
@@ -8,12 +9,17 @@ import { PostsService } from 'src/app/services/posts.service';
 })
 export class Tab1Page implements OnInit {
 
-  constructor(private postsService: PostsService) {}
+
+  posts: Post[] = [];
+
+  constructor(private postsService: PostsService) { }
 
   ngOnInit(): void {
-      this.postsService.getPosts().subscribe( resp => {
-        console.log(resp);
-      });
+    this.postsService.getPosts().subscribe(resp => {
+      console.log(resp);
+
+      this.posts.push(...resp.posts);
+    });
   }
 
 }

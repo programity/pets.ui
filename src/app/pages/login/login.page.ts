@@ -1,6 +1,7 @@
 import { IonSlides } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  @ViewChild('slider') slides:  IonSlides;
+  @ViewChild('slider') slides: IonSlides;
 
   avatars = [
     {
@@ -49,14 +50,25 @@ export class LoginPage implements OnInit {
     slidesPerView: 3.5
   };
 
-  constructor() {
-   }
+  loginUser = {
+    email: 'ediaz@gmail.com',
+    password: '123456'
+  };
+
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit() {
   }
 
   login(fLogin: NgForm) {
-    console.log(fLogin.valid);
+
+    if (fLogin.invalid) { return; }
+
+    this.userService.login(this.loginUser.email, this.loginUser.password);
+
+    // console.log(fLogin.valid);
+    // console.log(this.loginUser);
   }
 
   register(fRegister: NgForm) {

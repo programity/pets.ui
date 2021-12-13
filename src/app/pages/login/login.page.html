@@ -15,7 +15,12 @@
               <ion-list>
                 <ion-item lines="full">
                   <ion-label position="floating">Correo electrónico</ion-label>
-                  <ion-input name="email" type="email" required></ion-input>
+                  <ion-input
+                    name="email"
+                    type="email"
+                    [(ngModel)]="loginUser.email"
+                    required
+                  ></ion-input>
                 </ion-item>
 
                 <ion-item lines="full">
@@ -23,6 +28,7 @@
                   <ion-input
                     name="password"
                     type="password"
+                    [(ngModel)]="loginUser.password"
                     required
                   ></ion-input>
                 </ion-item>

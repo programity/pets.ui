@@ -1,4 +1,4 @@
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, NavController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
@@ -55,18 +55,23 @@ export class LoginPage implements OnInit {
     password: '123456'
   };
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private navCtrl: NavController) {
   }
 
   ngOnInit() {
   }
 
-  login(fLogin: NgForm) {
+  async login(fLogin: NgForm) {
 
     if (fLogin.invalid) { return; }
 
-    this.userService.login(this.loginUser.email, this.loginUser.password);
+    const valido = await this.userService.login(this.loginUser.email, this.loginUser.password);
 
+    if (valido) {
+      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
+    } else {
+      
+    }
     // console.log(fLogin.valid);
     // console.log(this.loginUser);
   }

@@ -1,17 +1,19 @@
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 
 const URL = environment.url;
+
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
 
-  token: string = null;
 
+  token: string = null;
 
   constructor(private http: HttpClient, private storage: Storage) { }
 
@@ -20,11 +22,30 @@ export class UserService {
 
     const data = { email, password };
 
-    this.http.post(`${URL}/user/login`, data)
-      .subscribe(resp => {
-        console.log(resp);
-      });
+    return new Promise(resolve => {
+      this.http.post(`${URL}/user/login`, data)
+        .subscribe(resp => {
+          console.log(resp);
 
+          // eslint-disable-next-line @typescript-eslint/dot-notation
+          if (resp['ok']) {
+            // eslint-disable-next-line @typescript-eslint/dot-notation
+            this.guardarToken(resp['token']);
+            resolve(true);
+          } else {
+            this.token = null;
+            this.storage.clear();
+            resolve(false);
+          }
+        });
+    });
+  }
+
+
+  async guardarToken(token: string) {
+
+    this.token = token;
+    await this.storage.set('token', token);
   }
 
 

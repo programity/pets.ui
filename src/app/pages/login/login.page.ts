@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { UIServiceService } from 'src/app/services/uiservice.service';
+import { User } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -52,8 +53,15 @@ export class LoginPage implements OnInit {
   };
 
   loginUser = {
-    email: 'ediaz@gmail.com',
+    email: 'test@gmail.com',
     password: '123456'
+  };
+
+  signupUser: User = {
+    email: 'test@gmail.com',
+    password: '123456',
+    name: 'Test',
+    avatar: 'av-1.png'
   };
 
   constructor(private userService: UserService, private navCtrl: NavController, private uiService: UIServiceService) {
@@ -79,8 +87,19 @@ export class LoginPage implements OnInit {
     // console.log(this.loginUser);
   }
 
-  register(fRegister: NgForm) {
-    console.log(fRegister);
+  async register(fRegister: NgForm) {
+
+    if (fRegister.invalid) { return; }
+
+    const valido = await this.userService.signup(this.signupUser);
+
+    if (valido) {
+      // navegar a home screens.
+      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
+    } else {
+      // show alerts
+      this.uiService.alertInfo('El correo electrónico existe.');
+    }
   }
 
   seleccionarAvatar(avatar: any) {

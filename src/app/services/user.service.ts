@@ -2,6 +2,7 @@ import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { User } from '../interfaces/interfaces';
 
 const URL = environment.url;
 
@@ -38,6 +39,28 @@ export class UserService {
             resolve(false);
           }
         });
+    });
+  }
+
+
+  signup(user: User) {
+
+    return new Promise(resolve => {
+
+      this.http.post(`${URL}/user/create`, user)
+        .subscribe(resp => {
+          // eslint-disable-next-line @typescript-eslint/dot-notation
+          if (resp['ok']) {
+            // eslint-disable-next-line @typescript-eslint/dot-notation
+            this.guardarToken(resp['token']);
+            resolve(true);
+          } else {
+            this.token = null;
+            this.storage.clear();
+            resolve(false);
+          }
+        });
+
     });
   }
 

@@ -4,16 +4,19 @@ import { CommonModule } from '@angular/common';
 import { PostComponent } from './post/post.component';
 import { PostsComponent } from './posts/posts.component';
 import { IonicModule } from '@ionic/angular';
+import { AvatarComponent } from './avatar/avatar.component';
 
 
 
 @NgModule({
   declarations: [
     PostComponent,
-    PostsComponent
+    PostsComponent,
+    AvatarComponent
   ],
   exports: [
-    PostsComponent
+    PostsComponent,
+    AvatarComponent
   ],
   imports: [
     IonicModule,

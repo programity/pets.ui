@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/dot-notation */
+/* eslint-disable no-underscore-dangle */
 import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -17,7 +19,7 @@ export class UserService {
 
 
   token: string = null;
-  user: User = {};
+  private user: User = {};
 
   constructor(private http: HttpClient, private storage: Storage, private navCtrl: NavController) { }
 
@@ -46,6 +48,15 @@ export class UserService {
     });
   }
 
+  // Methods logout
+
+  logout() {
+    this.token = null;
+    this.user = null;
+    this.storage.clear();
+    this.navCtrl.navigateRoot('/login', { animated: true });
+  }
+
 
   signup(user: User) {
 
@@ -67,6 +78,16 @@ export class UserService {
         });
 
     });
+  }
+
+
+  getUsers() {
+    if (!this.user._id) {
+      this.validaToken();
+    }
+
+    return { ...this.user };
+
   }
 
 
@@ -106,6 +127,31 @@ export class UserService {
             resolve(true);
           } else {
             this.navCtrl.navigateRoot('/login');
+            resolve(false);
+          }
+
+        });
+
+    });
+  }
+
+
+  updateUser(user: User) {
+    const headers = new HttpHeaders({
+      'x-token': this.token
+    });
+
+    return new Promise(resolve => {
+
+      this.http.post(`${URL}/user/update`, user, { headers })
+        .subscribe(resp => {
+
+          console.log(resp);
+
+          if (resp['ok']) {
+            this.guardarToken(resp['token']);
+            resolve(true);
+          } else {
             resolve(false);
           }
 

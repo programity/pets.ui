@@ -6,7 +6,7 @@
         <ion-grid fixed>
           <ion-row>
             <ion-col>
-              <img src="/assets/icon/favicon.png" />
+              <img src="/assets/icon/favicon.png"  />
             </ion-col>
           </ion-row>
 
@@ -14,20 +14,22 @@
             <ion-col>
               <ion-list>
                 <ion-item lines="full">
-                  <ion-label position="floating">Correo electrónico</ion-label>
+                  <ion-label color="dark" position="floating" class="position-label-inside">Correo electrónico</ion-label>
                   <ion-input
                     name="email"
                     type="email"
+                    placeholder="test@gmail.com"
                     [(ngModel)]="loginUser.email"
                     required
                   ></ion-input>
                 </ion-item>
 
                 <ion-item lines="full">
-                  <ion-label position="floating">Contraseña</ion-label>
+                  <ion-label color="dark"  position="floating" class="position-label-inside">Contraseña</ion-label>
                   <ion-input
                     name="password"
                     type="password"
+                    placeholder="@123456"
                     [(ngModel)]="loginUser.password"
                     required
                   ></ion-input>
@@ -37,22 +39,41 @@
           </ion-row>
 
           <ion-row>
-            <ion-col>
-              <ion-button type="submit" color="success" shape="round">
+            <ion-col size="12">
+              <ion-button
+                type="submit"
+                color="success"
+                shape="round"
+                expand="block"
+              >
                 Iniciar sesión
+              </ion-button>
+              <a [routerLink]="['/forgot-password']" class="small-text"
+                >Olvidaste la contraseña?</a
+              >
+            </ion-col>
+            <ion-col size="12">
+              <ion-button
+                shape="round"
+                expand="block"
+                fill="outline"
+                color="success"
+                (click)="showLogin()"
+              >
+                Crear cuenta
               </ion-button>
             </ion-col>
           </ion-row>
+
         </ion-grid>
       </form>
     </ion-slide>
 
     <ion-slide>
       <ion-grid fixed>
+        <!-- Avatar Select -->
 
-       <!-- Avatar Select -->
-       <!-- Avatar Selector -->
-       <app-avatar (avatarSel)="signupUser.avatar = $event"></app-avatar>
+        <app-avatar (avatarSel)="signupUser.avatar = $event"></app-avatar>
 
         <form (ngSubmit)="register(fRegister)" #fRegister="ngForm">
           <ion-row>
@@ -63,6 +84,7 @@
                   <ion-input
                     name="email"
                     type="email"
+                    placeholder="test@gmail.com"
                     [(ngModel)]="signupUser.email"
                     required
                   ></ion-input>
@@ -73,6 +95,7 @@
                   <ion-input
                     name="nombre"
                     type="text"
+                    placeholder="Eddy"
                     [(ngModel)]="signupUser.name"
                     required
                   ></ion-input>
@@ -83,6 +106,7 @@
                   <ion-input
                     name="password"
                     type="password"
+                    placeholder="@123456"
                     [(ngModel)]="signupUser.password"
                     required
                   ></ion-input>
@@ -92,9 +116,20 @@
           </ion-row>
 
           <ion-row>
-            <ion-col>
-              <ion-button type="submit" color="success" shape="round">
+            <ion-col size="12">
+              <ion-button type="submit" color="success" shape="round" expand="block">
                 Registrarme
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button
+                shape="round"
+                expand="full"
+                fill="outline"
+                color="success"
+                (click)="showRegister()"
+              >
+                Iniciar sesión
               </ion-button>
             </ion-col>
           </ion-row>
@@ -103,35 +138,3 @@
     </ion-slide>
   </ion-slides>
 </ion-content>
-
-<ion-footer no-border>
-  <ion-toolbar>
-    <ion-row>
-      <ion-col>
-        <ion-button
-          shape="round"
-          expand="full"
-          size="small"
-          fill="outline"
-          color="success"
-          (click)="showRegister()"
-        >
-          Iniciar sesión
-        </ion-button>
-      </ion-col>
-
-      <ion-col>
-        <ion-button
-          shape="round"
-          expand="full"
-          size="small"
-          fill="outline"
-          color="success"
-          (click)="showLogin()"
-        >
-          Crear cuenta
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-footer>

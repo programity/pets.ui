@@ -4,6 +4,11 @@
   height: 100%;
 }
 
+// .position-label-inside {
+//   padding-left: 50px;
+//   z-index: 1;
+// }
+
 img {
   width: 120px;
 }
@@ -16,4 +21,9 @@ img {
 .pick-avatar-seleccionado {
   transition: opacity 0.5s linear;
   opacity: 1 !important;
+}
+
+.small-text {
+ font-size: small;
+ color: black;
 }

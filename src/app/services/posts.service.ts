@@ -1,7 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+/* eslint-disable @typescript-eslint/dot-notation */
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, EventEmitter } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { RespuestaPosts } from '../interfaces/interfaces';
+import { Post, RespuestaPosts } from '../interfaces/interfaces';
+import { UserService } from './user.service';
+
 
 const URL = environment.url;
 
@@ -12,16 +15,37 @@ export class PostsService {
 
   paginaPosts = 0;
 
-  constructor(private http: HttpClient) { }
+  newPost = new EventEmitter<Post>();
+
+  constructor(private http: HttpClient, private userService: UserService) { }
 
   getPosts(pull: boolean = false) {
 
-    if(pull){
+    if (pull) {
       this.paginaPosts = 0;
     }
 
     this.paginaPosts++;
     return this.http.get<RespuestaPosts>(`${URL}/posts/?pagina=${this.paginaPosts}`);
+
+  }
+
+
+  createPost(post) {
+
+    const headers = new HttpHeaders({
+      'x-token': this.userService.token
+    });
+
+    return new Promise(resolve => {
+
+      this.http.post(`${URL}/posts`, post, { headers })
+        .subscribe(resp => {
+
+          this.newPost.emit(resp['post']);
+          resolve(true);
+        });
+    });
 
   }
 

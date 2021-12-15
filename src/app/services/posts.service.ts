@@ -49,4 +49,24 @@ export class PostsService {
 
   }
 
+  // subirImagen(img: string) {
+
+  //   const options: FileUploadOptions = {
+  //     fileKey: 'image',
+  //     headers: {
+  //       'x-token': this.usuarioService.token
+  //     }
+  //   };
+
+  //   const fileTransfer: FileTransferObject = this.fileTransfer.create();
+
+  //   fileTransfer.upload(img, `${URL}/posts/upload`, options)
+  //     .then(data => {
+  //       console.log(data);
+  //     }).catch(err => {
+  //       console.log('error en carga', err);
+  //     });
+
+  // }
+
 }

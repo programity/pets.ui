@@ -1,17 +1,66 @@
-<ion-header [translucent]="true">
+<ion-header no-border>
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" color="success">
+        <ion-icon slot="icon-only" name="exit"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-row class="top-20">
+    <ion-col size="12" text-center>
+      <img src="assets/avatars/{{ user.avatar }}" class="img-avatar" />
+    </ion-col>
+  </ion-row>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-row class="top-20">
+    <ion-col size="12" text-center>
+      <ion-label>
+        <h1>Actualizar perfil</h1>
+      </ion-label>
+    </ion-col>
+  </ion-row>
+
+  <app-avatar
+    (avatarSel)="user.avatar = $event"
+    [avatarActual]="user.avatar"
+  ></app-avatar>
+
+  <form #fUpdate="ngForm" (ngSubmit)="update(fUpdate)">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input
+              name="email"
+              type="email"
+              [(ngModel)]="user.email"
+              required
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input
+              name="nombre"
+              type="text"
+              [(ngModel)]="user.name"
+              required
+            ></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-align-center">
+        <ion-button type="submit" color="success" shape="round" expand="block">
+          Actualizar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

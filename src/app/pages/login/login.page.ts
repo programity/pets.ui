@@ -15,14 +15,14 @@ export class LoginPage implements OnInit {
 
 
   loginUser = {
-    email: 'test@gmail.com',
-    password: '123456'
+    email: '',
+    password: ''
   };
 
   signupUser: User = {
-    email: 'test@gmail.com',
-    password: '123456',
-    name: 'Test',
+    email: '',
+    password: '',
+    name: '',
     avatar: 'av-1.png'
   };
 

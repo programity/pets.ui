@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserGuard } from './guards/user.guard';
 
 const routes: Routes = [
+
   {
     path: 'main',
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
@@ -16,7 +17,14 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     redirectTo: 'login'
-  }
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule)
+  },
+
+
+
 ];
 @NgModule({
   imports: [

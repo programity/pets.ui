@@ -108,8 +108,7 @@ export class UserService {
       return Promise.resolve(false);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    return new Promise(resolve => {
+    return new Promise<boolean>(resolve => {
 
       const headers = new HttpHeaders({
         'x-token': this.token
@@ -118,9 +117,8 @@ export class UserService {
       this.http.get(`${URL}/user/`, { headers })
         .subscribe(resp => {
 
-          // eslint-disable-next-line @typescript-eslint/dot-notation
+
           if (resp['ok']) {
-            // eslint-disable-next-line @typescript-eslint/dot-notation
             this.user = resp['user'];
             resolve(true);
           } else {

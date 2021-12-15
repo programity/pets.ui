@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
     password: ''
   };
 
-  signupUser: User = {
+  registerUser: User = {
     email: '',
     password: '',
     name: '',
@@ -30,6 +30,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    // this.slides.lockSwipes(true);
   }
 
   async login(fLogin: NgForm) {
@@ -53,7 +54,7 @@ export class LoginPage implements OnInit {
 
     if (fRegister.invalid) { return; }
 
-    const valido = await this.userService.signup(this.signupUser);
+    const valido = await this.userService.registro(this.registerUser);
 
     if (valido) {
       // navegar a home screens.

@@ -73,7 +73,7 @@
       <ion-grid fixed>
         <!-- Avatar Select -->
 
-        <app-avatar (avatarSel)="signupUser.avatar = $event"></app-avatar>
+        <app-avatar (avatarSel)="registerUser.avatar = $event"></app-avatar>
 
         <form (ngSubmit)="register(fRegister)" #fRegister="ngForm">
           <ion-row>
@@ -85,7 +85,7 @@
                     name="email"
                     type="email"
                     placeholder="test@gmail.com"
-                    [(ngModel)]="signupUser.email"
+                    [(ngModel)]="registerUser.email"
                     required
                   ></ion-input>
                 </ion-item>
@@ -95,8 +95,8 @@
                   <ion-input
                     name="nombre"
                     type="text"
-                    placeholder="Eddy"
-                    [(ngModel)]="signupUser.name"
+                    placeholder="usuario"
+                    [(ngModel)]="registerUser.name"
                     required
                   ></ion-input>
                 </ion-item>
@@ -107,7 +107,7 @@
                     name="password"
                     type="password"
                     placeholder="@123456"
-                    [(ngModel)]="signupUser.password"
+                    [(ngModel)]="registerUser.password"
                     required
                   ></ion-input>
                 </ion-item>

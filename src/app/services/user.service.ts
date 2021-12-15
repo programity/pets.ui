@@ -28,15 +28,12 @@ export class UserService {
 
     const data = { email, password };
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     return new Promise(resolve => {
       this.http.post(`${URL}/user/login`, data)
         .subscribe(resp => {
           console.log(resp);
 
-          // eslint-disable-next-line @typescript-eslint/dot-notation
           if (resp['ok']) {
-            // eslint-disable-next-line @typescript-eslint/dot-notation
             this.guardarToken(resp['token']);
             resolve(true);
           } else {
@@ -58,26 +55,27 @@ export class UserService {
   }
 
 
-  signup(user: User) {
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
+  registro(user: User) {
+
     return new Promise(resolve => {
 
       this.http.post(`${URL}/user/create`, user)
-        .subscribe(resp => {
-          // eslint-disable-next-line @typescript-eslint/dot-notation
+        .subscribe(async resp => {
+          console.log(resp);
+
           if (resp['ok']) {
-            // eslint-disable-next-line @typescript-eslint/dot-notation
-            this.guardarToken(resp['token']);
+            await this.guardarToken(resp['token']);
             resolve(true);
           } else {
             this.token = null;
             this.storage.clear();
             resolve(false);
           }
-        });
 
+        });
     });
+
   }
 
 
